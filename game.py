@@ -78,6 +78,25 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
+    #Blit background
+    display.blit(background_image, background_rect)
+
+    #Blit HUD
+    display.blit(title_text, title_rect)
+    display.blit(score_text, score_rect)
+    display.blit(player_lives_text, player_lives_rect)
+
+    #Blit Assests
+    display.blit(clown_image, clown_rect)
+
+    #Tick the Clock
+    clock.tick(FPS)
+
+
+
+    #Update display
+    pygame.display.update()
+
 
 #End game
 pygame.quit()
