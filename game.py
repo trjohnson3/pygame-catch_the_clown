@@ -33,22 +33,42 @@ YELLOW = (248, 231, 28)
 font = pygame.font.Font('./fonts/Franxurter.ttf', 32)
 
 #Set text
-title_text = font.render('Catch the Clown', True, Blue)
+title_text = font.render('Catch the Clown', True, BLUE)
 title_rect = title_text.get_rect()
-title_rect.topleft(50, 10)
+title_rect.topleft = (50, 10)
 
 score_text = font.render('Lives: ' + str(score), True, YELLOW)
 score_rect = score_text.get_rect()
-score_rect.topright(WINDOW_WIDTH - 50, 10)
+score_rect.topright = (WINDOW_WIDTH - 50, 10)
 
 player_lives_text = font.render('Lives: ' + str(player_lives), True, YELLOW)
 player_lives_rect = player_lives_text.get_rect()
-player_lives_rect.topright(WINDOW_WIDTH - 50, 50)
+player_lives_rect.topright = (WINDOW_WIDTH - 50, 50)
+
+game_over_text = font.render('GAME OVER', True, BLUE, YELLOW)
+game_over_rect = game_over_text.get_rect()
+game_over_rect.center = (WINDOW_WIDTH//2, WINDOW_HEIGHT//2)
+
+continue_text = font.render('Press any key to play again', True, BLUE, YELLOW)
+continue_rect = continue_text.get_rect()
+continue_rect.center = (WINDOW_WIDTH//2, WINDOW_HEIGHT//2 + 64)
 
 #Set sounds
+hit_sound = pygame.mixer.Sound('./sounds/click.wav')
+miss_sound = pygame.mixer.Sound('./sounds/miss.wav')
+pygame.mixer.music.load('./sounds/song.wav')
 
 
 #Set images
+background_image = pygame.image.load('./images/background.png')
+background_rect = background_image.get_rect()
+background_rect.center = (WINDOW_WIDTH//2, WINDOW_HEIGHT//2)
+
+clown_image = pygame.image.load('./images/clown.png')
+clown_rect = clown_image.get_rect()
+clown_rect.center = (WINDOW_WIDTH//2, WINDOW_HEIGHT//2)
+
+
 
 
 #Main game loop
