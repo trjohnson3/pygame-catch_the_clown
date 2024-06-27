@@ -108,10 +108,44 @@ while running:
     clown_rect.y += clown_dy * clown_velocity
 
     #Bounce the clown
-    if clown_rect.left <= 0 or clown_rect.right >= WINDOW_WIDTH:
-        clown_dx *= -1
-    if clown_rect.top <= 0 or clown_rect.bottom >= WINDOW_HEIGHT:
-        clown_dy *= -1
+    if clown_rect.x <= 0 or clown_rect.x >= WINDOW_WIDTH - 48:
+        clown_dx = -1*clown_dx
+    if clown_rect.y <= 0 or clown_rect.y >= WINDOW_HEIGHT - 48:
+        clown_dy = -1*clown_dy
+
+    #Update HUD
+    score_text = font.render('Score: ' + str(score), True, YELLOW)
+    player_lives_text = font.render('Lives: ' + str(player_lives), True, YELLOW)
+
+    #Check for game over
+    if player_lives <= 0:
+        display.blit(player_lives_text, player_lives_rect)
+        display.blit(game_over_text, game_over_rect)
+        display.blit(continue_text, continue_rect)
+        pygame.display.update()
+
+        #Pause until the player clicks, then restart game
+        pygame.mixer.music.stop()
+        pygame.time.wait(500)
+        is_paused = True
+        while is_paused:
+            for event in pygame.event.get():
+                #Wants to play again
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    score = 0
+                    player_lives = PLAYER_STARTING_LIVES
+                    clown_rect.center = (WINDOW_WIDTH//2, WINDOW_HEIGHT//2)
+                    clown_velocity = CLOWN_STARTING_VELOCITY
+                    clown_dx = random.choice([-1, 1])
+                    clown_dy = random.choice([-1, 1])
+                    pygame.mixer.music.play(-1, 0.0)
+                    is_paused = False
+                #Wants to quit
+                elif event.type == pygame.QUIT:
+                    is_paused = False
+                    running = False
+
+
 
     #Filling display
     display.fill(BLACK)
